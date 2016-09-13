@@ -1,0 +1,7 @@
+github: https://github.com/typicode/json-server
+
+1. 一个JSON服务器，在后端没有写好API之前，快速提供前端开发所需要的数据。
+
+2. 安装： 打开git bush -> 输入npm install -g json-server
+
+3. 使用：打开git bush -> 输入json-server --watch db.json
