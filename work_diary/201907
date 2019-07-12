@@ -1,0 +1,12 @@
+0712
+1. 学习了标签模板 Tagged Template Literals。
+把模板字符串紧跟在函数名后面，函数调用的一种特殊形式，styled-components背后的黑魔法。写了很久的styled-components却没有思考过究竟是个什么东西。
+例子：
+const Button = styled.button`
+  background-color: papayawhip;
+  border-radius: 3px;
+  color: palevioletred;
+`
+<Button>Hi Dad!</Button>
+styled.button其实是一个函数，调用之后返回了一个新的组件，所以可以在其他任何地方使用这个组件。
+注：之前好像看到过，每调用一次styled.button，styled-components内部都会有一个计数器加1，是组件id，componentId,然后怎样来着？？
