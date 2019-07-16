@@ -1,6 +1,11 @@
 0712
 1. 学习了标签模板 Tagged Template Literals。
 把模板字符串紧跟在函数名后面，函数调用的一种特殊形式，styled-components背后的黑魔法。写了很久的styled-components却没有思考过究竟是个什么东西。
+const logArgs = (...args) => console.log(...args)
+const favoriteFood = 'pizza'
+logArgs(`I like ${favoriteFood}.`) // -> I like pizza.
+logArgs`I like ${favoriteFood}.` // -> ["I like ", "."] "pizza"
+
 例子：
 const Button = styled.button`
   background-color: papayawhip;
@@ -10,3 +15,55 @@ const Button = styled.button`
 <Button>Hi Dad!</Button>
 styled.button其实是一个函数，调用之后返回了一个新的组件，所以可以在其他任何地方使用这个组件。
 注：之前好像看到过，每调用一次styled.button，styled-components内部都会有一个计数器加1，是组件id，componentId,然后怎样来着？？
+
+
+0713
+1. 继续学习文章 The magic behind 💅 styled-components （https://mxstbr.blog/2016/11/styled-components-magic-explained/）
+const execFuncArgs = (...args) => args.forEach(arg => {
+  if (typeof arg === 'function') {
+    arg()
+  }
+})
+execFuncArgs(`Hi, ${() => { console.log('Executed!') }}`)
+// 参数`Hi, ${() => { console.log('Executed!') }}`不是一个函数，所以什么都不会发生
+execFuncArgs`Hi, ${() => { console.log('Executed!') }}`
+// 第一个参数['Hi, ', ''] ，第二个参数是函数() => { console.log('Executed!') }，运行之后输出Executed。
+
+2. 对象的==不会强制类型转换？
+function checkAge(data) {
+  if (data === { age: 18 }) {
+    console.log("You are an adult!");
+  } else if (data == { age: 18 }) {
+    console.log("You are still an adult.");
+  } else {
+    console.log(`Hmm.. You don't have an age I guess`);
+  }
+}
+checkAge({ age: 18 });
+// Hmm.. You don't have an age I guess
+
+3. 扩展运算符返回的是一个包含参数的数组，而typeof 数组是object
+function getAge(...args) {
+  console.log(typeof args);
+}
+getAge(21);
+// "object"
+
+4. cool_secret可以访问多长时间?
+sessionStorage.setItem("cool_secret", 123);
+A：永远，数据不会丢失。
+B：用户关闭选项卡时。
+C：当用户关闭整个浏览器时，不仅是选项卡。
+D：用户关闭计算机时。
+答案: B
+
+5. const obj = { a: "one", b: "two", a: "three" };
+console.log(obj);
+
+A: { a: "one", b: "two" }
+B: { b: "two", a: "three" }
+C: { a: "three", b: "two" }
+D: SyntaxError
+
+答案: C
+如果对象有两个具有相同名称的键，则将替前面的键。它仍将处于第一个位置，但具有最后指定的值。
