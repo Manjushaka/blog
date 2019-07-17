@@ -67,3 +67,78 @@ D: SyntaxError
 
 答案: C
 如果对象有两个具有相同名称的键，则将替前面的键。它仍将处于第一个位置，但具有最后指定的值。
+
+
+0716
+1. String.prototype.giveLydiaPizza = () => {
+  return "Just give Lydia pizza already!";
+};
+const name = "Lydia";
+name.giveLydiaPizza();
+
+A: "Just give Lydia pizza already!"
+B: TypeError: not a function
+C: SyntaxError
+D: undefined
+
+答案: A
+String是一个内置的构造函数，我们可以为它添加属性。 我刚给它的原型添加了一个方法。 原始类型的字符串自动转换为字符串对象，由字符串原型函数生成。 因此，所有字符串（字符串对象）都可以访问该方法！
+译者注：
+当使用基本类型的字符串调用giveLydiaPizza时，实际上发生了下面的过程：
+创建一个String的包装类型实例
+在实例上调用giveLydiaPizza方法
+销毁实例
+
+2.
+const a = {};
+const b = { key: "b" };
+const c = { key: "c" };
+a[b] = 123;
+a[c] = 456;
+console.log(a[b]);
+
+A: 123
+B: 456
+C: undefined
+D: ReferenceError
+
+答案: B
+对象键自动转换为字符串。我们试图将一个对象设置为对象a的键，其值为123。
+但是，当对象自动转换为字符串化时，它变成了[Object object]。 所以我们在这里说的是a["Object object"] = 123。 然后，我们可以尝试再次做同样的事情。 c对象同样会发生隐式类型转换。那么，a["Object object"] = 456。
+然后，我们打印a[b]，它实际上是a["Object object"]。 我们将其设置为456，因此返回456。
+
+3.
+JavaScript中只有6个假值：
+undefined
+null
+NaN
+0
+'' (empty string)
+false
+
+new Number(0) 和 new Boolean(false)都是真值
+
+
+0717
+1. 看完了 [[译] 送你 43 道 JavaScript 面试题](https://juejin.im/post/5d0644976fb9a07ed064b0ca)的题目
+2. 感觉猎头提了几个很好的问题，明天看一看
+    ebay前端ecg面试分享
+    - React 视图更新机制
+    - React 的state为什么异步设置
+    - function A() 和 let A = function() 的区别
+    - 变量提升
+    - 什么是静态方法
+    - 箭头函数和普通函数的区别
+    - es 5 设置类和es6设置类
+    - this指向
+
+    1.promise用法，怎么异步转同步，除了generator，async还有别的吗
+    2.原生JS实现数据单向绑定，
+    3.express中间件的写法，
+    4.用了哪些数据库，
+    5.let和var区别，  
+    6闭包
+    7一个变量怎么会被垃圾回收机制回收
+
+
+
